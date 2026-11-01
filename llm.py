@@ -7,6 +7,7 @@ from openai import OpenAI
 
 from config import MODEL
 from tools import TOOL_SCHEMAS, TOOLS
+from skills import skills_prompt
 
 load_dotenv()
 
@@ -23,6 +24,11 @@ Use the bash tool to inspect files.
 Answer back to the user once exploration is done.
 
 Your current working directory is: {os.getcwd()}
+
+You have skills available. Each one is a set of instructions for a task.
+If a skill matches the user wants, call read_skill first and follow it.
+
+{skills_prompt()}
 """
 
 def call_llm(messages: list, tools: list | None = None):
